@@ -33,6 +33,7 @@ func main() {
 
 	fmt.Printf("hosting proxy at %v\n", *host)
 	proxy := httputil.NewSingleHostReverseProxy(baseUrl)
+	http.DefaultTransport = &http.Transport{MaxIdleConnsPerHost: 5000}
 	if err := http.ListenAndServe(*host, proxy); err != nil {
 		fmt.Printf("fatal: %v\n", err)
 	}
